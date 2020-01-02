@@ -3,9 +3,9 @@
 //! Use the lowest precision possible for the best results.
 //! 
 //! How to use: 
-//! # Build the ```uFmt_fx``` enum with the variant the level of precision required
-//! # Send that variable to the ufmt macro
-//! # The macro will then output the text representation of the float.
+//! * Build the ```uFmt_fx``` enum with the variant the level of precision required
+//! * Send that variable to the ufmt macro
+//! * The macro will then output the text representation of the float.
 //! ```
 //! use ufmt::{uwriteln};    
 //! use ufmt_float::uFmt_f32;
