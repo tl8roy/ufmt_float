@@ -1,0 +1,22 @@
+[package]
+name = "ufmt_float"
+version = "0.1.0"
+categories = ["embedded", "no-std"]
+authors = ["Tristan Lostroh <tl8roy@gmail.com>"]
+edition = "2018"
+description = "A rough implementation of a writer for f32 and f64 for ufmt."
+license = "MIT"
+repository = "https://github.com/tl8roy/ufmt_float"
+
+[dependencies]
+ufmt = "0.1.0"
+micromath = { version = "1.0", optional = true }
+
+[features]
+default = ["maths"]
+std = ["ufmt/std"]
+maths = ["micromath"]
+
+[[test]]
+name = "format-tests"
+required-features = ["std"]
