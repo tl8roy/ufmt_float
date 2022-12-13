@@ -165,6 +165,7 @@ fn float_to_int<T,U,V>(orginal: T,precision: u8) -> (U,V)
 fn float_to_int_f32(orginal: f32, precision: u8) -> (i32, u32) {
 	#[allow(unused_imports)]
 	use micromath::F32Ext;
+	let negative_flag = orginal.is_sign_negative();
 	let prec = match precision {
 		1 => 10.0,
 		2 => 100.0,
@@ -174,13 +175,14 @@ fn float_to_int_f32(orginal: f32, precision: u8) -> (i32, u32) {
 		_ => 0.0,
 	};
 	let base = orginal.trunc() as i32;
-	let decimal = (orginal.fract() * prec) as u32;
+	let decimal = if negative_flag { (-orginal.fract() * prec) as u32 } else { (orginal.fract() * prec) as u32 };
 	(base, decimal)
 }
 
 ///Split the float into the integer and the fraction with the correct precision
 #[cfg(not(feature = "maths"))]
 fn float_to_int_f32(orginal: f32, precision: u8) -> (i32, u32) {
+	let negative_flag = orginal.is_sign_negative();
 	let prec = match precision {
 		1 => 10.0,
 		2 => 100.0,
@@ -190,12 +192,17 @@ fn float_to_int_f32(orginal: f32, precision: u8) -> (i32, u32) {
 		_ => 0.0,
 	};
 	let base = orginal as i32;
-	let decimal = ((orginal - (base as f32)) * prec) as u32;
+	let decimal = if negative_flag {
+		((-orginal + (base as f32)) * prec) as u32
+	} else {
+		((orginal - (base as f32)) * prec) as u32
+	};
 	(base, decimal)
 }
 
 ///Split the float into the integer and the fraction with the correct precision
 fn float_to_int_f64(orginal: f64, precision: u8) -> (i32, u32) {
+	let negative_flag = orginal.is_sign_negative();
 	let prec = match precision {
 		1 => 10.0,
 		2 => 100.0,
@@ -205,6 +212,10 @@ fn float_to_int_f64(orginal: f64, precision: u8) -> (i32, u32) {
 		_ => 0.0,
 	};
 	let base = orginal as i32;
-	let decimal = ((orginal - (base as f64)) * prec) as u32;
+	let decimal = if negative_flag {
+		((-orginal + (base as f64)) * prec) as u32
+	} else {
+		((orginal - (base as f64)) * prec) as u32
+	};
 	(base, decimal)
 }
