@@ -52,6 +52,18 @@ fn format_f32() {
 	let number_write = uFmt_f32::Four(number);
 	ufmt::uwrite!(&mut s, "{}", number_write).unwrap();
 	assert_ne!(s, "13539.0008");
+
+	let small_pi = 0.31415924;
+
+	let mut s = String::new();
+	let pi_write = uFmt_f32::Zero(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0");
+
+	let mut s = String::new();
+	let pi_write = uFmt_f32::One(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0.3");
 }
 
 #[test]
@@ -106,6 +118,18 @@ fn format_f64() {
 	let number_write = uFmt_f64::Four(number);
 	ufmt::uwrite!(&mut s, "{}", number_write).unwrap();
 	assert_eq!(s, "134539.0003");
+
+	let small_pi = 0.31415924;
+
+	let mut s = String::new();
+	let pi_write = uFmt_f64::Zero(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0");
+
+	let mut s = String::new();
+	let pi_write = uFmt_f64::One(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0.3");
 }
 
 #[test]
@@ -176,6 +200,18 @@ fn format_negative_f32() {
 	let number_write = uFmt_f32::Four(number);
 	ufmt::uwrite!(&mut s, "{}", number_write).unwrap();
 	assert_ne!(s, "-13539.0008");
+
+	let small_pi = -0.31415924;
+
+	let mut s = String::new();
+	let pi_write = uFmt_f32::Zero(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0");
+
+	let mut s = String::new();
+	let pi_write = uFmt_f32::One(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "-0.3");
 }
 
 #[test]
@@ -230,4 +266,16 @@ fn format_negative_f64() {
 	let number_write = uFmt_f64::Four(number);
 	ufmt::uwrite!(&mut s, "{}", number_write).unwrap();
 	assert_eq!(s, "-134539.0003");
+
+	let small_pi = -0.31415924;
+
+	let mut s = String::new();
+	let pi_write = uFmt_f64::Zero(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "0");
+
+	let mut s = String::new();
+	let pi_write = uFmt_f64::One(small_pi);
+	ufmt::uwrite!(&mut s, "{}", pi_write).unwrap();
+	assert_eq!(s, "-0.3");
 }
