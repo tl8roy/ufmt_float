@@ -51,14 +51,17 @@ impl uDisplay for uFmt_f32 {
 		W: uWrite + ?Sized,
 	{
 		use uFmt_f32::*;
-		let (number, decimals) = match self {
-			Zero(x) => float_to_int_f32(*x, 0),
-			One(x) => float_to_int_f32(*x, 1),
-			Two(x) => float_to_int_f32(*x, 2),
-			Three(x) => float_to_int_f32(*x, 3),
-			Four(x) => float_to_int_f32(*x, 4),
-			Five(x) => float_to_int_f32(*x, 5),
+
+		let (x, precision) = match self {
+			Zero(x) => (*x, 0),
+			One(x) => (*x, 1),
+			Two(x) => (*x, 2),
+			Three(x) => (*x, 3),
+			Four(x) => (*x, 4),
+			Five(x) => (*x, 5),
 		};
+		let (number, decimals) = float_to_int_f32(x, precision);
+		if precision != 0 && number == 0 && x.is_sign_negative() { uwrite!(f, "-")?; }
 		uwrite!(f, "{}", number)?;
 
 		match self {
@@ -107,14 +110,17 @@ impl uDisplay for uFmt_f64 {
 		W: uWrite + ?Sized,
 	{
 		use uFmt_f64::*;
-		let (number, decimals) = match self {
-			Zero(x) => float_to_int_f64(*x, 0),
-			One(x) => float_to_int_f64(*x, 1),
-			Two(x) => float_to_int_f64(*x, 2),
-			Three(x) => float_to_int_f64(*x, 3),
-			Four(x) => float_to_int_f64(*x, 4),
-			Five(x) => float_to_int_f64(*x, 5),
+
+		let (x, precision) = match self {
+			Zero(x) => (*x, 0),
+			One(x) => (*x, 1),
+			Two(x) => (*x, 2),
+			Three(x) => (*x, 3),
+			Four(x) => (*x, 4),
+			Five(x) => (*x, 5),
 		};
+		let (number, decimals) = float_to_int_f64(x, precision);
+		if precision != 0 && x.is_sign_negative() && x > -1. { uwrite!(f, "-")?; }
 		uwrite!(f, "{}", number)?;
 
 		match self {
